@@ -20,7 +20,7 @@ const run = async () => {
         site = sites.find(site => site.name === siteName);
       } catch (e) {
         const errMsg = 'account slug or site name invalid';
-        console.warn(errMsg);
+        core.warning(errMsg);
         throw new Error(errMsg);
       }
       const iterations = maxTimeout / 3;
@@ -30,15 +30,15 @@ const run = async () => {
           deploy = deploys.find(deploy => deploy.commit_ref === commitRef);
           return deploy.id;
         } catch (e) {
-          console.warn('commit deploy not (yet) available; retrying in 3s')
+          core.warning('commit deploy not (yet) available; retrying in 3s')
           await new Promise(r => setTimeout(r, 3000));
         }
       }
       const errMsg = 'timed out: commit deploy was unavailable';
-      console.warn(errMsg);
+      core.warning(errMsg);
       throw new Error(errMsg);
     }
-    console.log(`Waiting for the Netlify deploy`);
+    core.info(`Waiting to resolve Netlify deploy ID from last commit`);
     const deployId = await getDeployId();
     const url = `https://${deployId}--${siteName}.netlify.app`;
     core.setOutput("url", url);
