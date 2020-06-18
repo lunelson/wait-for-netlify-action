@@ -1,5 +1,5 @@
 {
-  "name": "wait-for-netlify-deploy-url-action",
+  "name": "wait-for-netlify-deployment-url",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
