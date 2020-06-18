@@ -1,77 +1,31 @@
-# Wait for Netlify — A GitHub Action ⏱
+# Github Action: Wait for Netlify Deployment URL
 
-Do you have other Github actions (Lighthouse, Cypress, etc) that depend on the Netlify Preview URL? This action will wait until the url is available before running the next task.
+If you have Github Actions which need to run tests (e.g. Lighthouse CI, Cypress, etc) against the latest _commit-specific_ Netlify deployment of your site, this action will wait for Netlify's internally generated _deployment ID_ before passing on the URL (`https://{deploy-id}--{site-name}.netlify.app/`) to the next task.
 
-## Inputs
+## How To Use It
 
-### `site_name`
+1. Create a new __Personal Access Token__ for Netlify in your [user profile applications page](https://app.netlify.com/user/applications). If you are running this workflow in a public repository, you'll want to add this to your repo's secrets; otherwise you can paste it in to your workflow.
+2. Note the relevant __Account Slug__ and __Site Name__. They can be found within the following URLs:
+   * Account Slug: `https://app.netlify.com/teams/{account_slug}/sites`
+   * Site Name: `https://{site_name}.netlify.app`
 
-**Required** The name of the Netlify site to reach `https://{site_name}.netlify.app`
+### Inputs
 
-### `request_headers`
+|Parameter||
+|--|--|
+|`access_token` *| Your Netlify Personal Access Token (required; see step 1) |
+|`account_slug` *| Your Netlify Account Slug (required; see step 2) |
+|`site_name` *| Your Netlify Site Name (required; see step 2) |
+|`timeout_secs`| How long to keep polling for the deploy ID before timing out (optional; default: `60`) |
 
-Optional — Stringified HTTP Header object key/value pairs to send in requests (eg. `'{ "Authorization": "Basic YWxhZGRpbjpvcGVuc2VzYW1l }'`)
-
-### `max_timeout`
-
-Optional — The amount of time to spend waiting on Netlify. Defaults to `60` seconds
-
-## Outputs
-
-### `url`
-
-The netlify deploy preview url that was deployed.
+### Outputs
+|Parameter||
+|--|--|
+|`url` | The commit-specific deployment URL for your site: `https://{deploy-id}--{site-name}.netlify.app/` |
 
 ## Example usage
 
 Basic Usage
 
 ```yaml
-steps:
-  - name: Waiting for 200 from the Netlify Preview
-    uses: jakepartusch/wait-for-netlify-action@v1
-    id: waitFor200
-    with:
-      site_name: "jakepartusch"
-      max_timeout: 60
 ```
-
-<details>
-<summary>Complete example with Lighthouse</summary>
-<br />
-
-```yaml
-name: Lighthouse
-
-on: [pull_request]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - name: Install
-        run: |
-          npm ci
-      - name: Build
-        run: |
-          npm run build
-      - name: Waiting for 200 from the Netlify Preview
-        uses: jakepartusch/wait-for-netlify-action@v1
-        id: waitFor200
-        with:
-          site_name: "jakepartusch"
-      - name: Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.3.x
-          lhci autorun --upload.target=temporary-public-storage --collect.url=${{ steps.waitFor200.outputs.url }} || echo "LHCI failed!"
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-```
-
-</details>

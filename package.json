@@ -1,5 +1,5 @@
 {
-  "name": "wait-for-netlify-action",
+  "name": "wait-for-netlify-deploy-url-action",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,11 +8,11 @@
     "build": "echo \"Built successfully\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Lu Nelson",
   "license": "ISC",
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@actions/github": "^2.0.0",
-    "axios": "^0.19.0"
+    "netlify": "^4.3.1"
   }
 }

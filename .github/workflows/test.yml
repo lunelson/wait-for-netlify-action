@@ -1,0 +1,17 @@
+on: [pull_request, push]
+
+jobs:
+  self_test:
+    name: Action Self Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Run the Action
+        uses: ./
+        id: netlify
+        with:
+          access_token: ${{ secrets.NETLIFY_TOKEN }}
+          account_slug: "lunelson"
+          site_name: "lunelson-xyz"
+          timeout_secs: 60
