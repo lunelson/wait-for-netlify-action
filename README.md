@@ -32,8 +32,8 @@ Basic Usage
 
 ## TODOs
 
-- [ ] rename to just `wait-for-netlify-deploy-url` without `-action`
-- [ ] run checks in the action, for validity of inputs
+- [ ] rename to `wait-for-netlify-deployment-url` without `-action`
+- [ ] run checks in the action, to validate inputs
 - [ ] document a real example, to show how `steps.netlify.outputs.url` is passed on to subsequent steps
 - [ ] do a PR back to jakepartusch, OR
 - [ ] remove previous tags and publish to Marketplace as v2
