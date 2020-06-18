@@ -10,7 +10,7 @@ const run = async () => {
     const maxTimeout = Number(core.getInput("timeout_secs")) || 60;
     const commitRef = core.getInput('commit_ref') || github.context.payload.head; // allow this input for testing only
     /*
-      insert checks here, to fail if any of these inputs are invalid
+      TODO: insert checks here, to fail if any of these inputs are invalid
     */
     const client = new Netlify(accessToken)
     const getDeployId = async () => {

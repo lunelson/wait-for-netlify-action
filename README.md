@@ -21,7 +21,7 @@ If you have Github Actions which need to run tests (e.g. Lighthouse CI, Cypress,
 ### Outputs
 |Parameter||
 |--|--|
-|`url` | The commit-specific deployment URL for your site: `https://{deploy-id}--{site-name}.netlify.app/` |
+|`url` | The commit-specific deployment URL for your site |
 
 ## Example usage
 
@@ -29,3 +29,11 @@ Basic Usage
 
 ```yaml
 ```
+
+## TODOs
+
+- [ ] rename to just `wait-for-netlify-deploy-url` without `-action`
+- [ ] run checks in the action, for validity of inputs
+- [ ] document a real example, to show how `steps.netlify.outputs.url` is passed on to subsequent steps
+- [ ] do a PR back to jakepartusch, OR
+- [ ] remove previous tags and publish to Marketplace as v2
