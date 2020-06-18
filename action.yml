@@ -10,7 +10,7 @@ inputs:
   request_headers:
     description: "Stringified HTTP Header object key/value pairs to send in requests"
     required: false
-  max_timeout:
+  timeout_secs:
     description: "The max time to run the action"
     required: false
 outputs:
