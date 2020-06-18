@@ -4,11 +4,11 @@ const Netlify = require('netlify');
 
 const run = async () => {
   try {
-    const commitRef = github.context.payload.head;
     const accessToken = core.getInput('access_token')
     const accountSlug = core.getInput('account_slug')
     const siteName = core.getInput('site_name')
     const maxTimeout = Number(core.getInput("timeout_secs")) || 60;
+    const commitRef = core.getInput('commit_ref') || github.context.payload.head; // allow this input for testing only
     /*
       insert checks here, to fail if any of these inputs are invalid
     */

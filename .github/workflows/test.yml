@@ -14,4 +14,4 @@ jobs:
           access_token: ${{ secrets.NETLIFY_TOKEN }}
           account_slug: "lunelson"
           site_name: "lunelson-xyz"
-          timeout_secs: 60
+          commit_ref: "530d6d3b3de314ee7079ca1900713abab893e22f"
